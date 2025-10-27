@@ -1,3 +1,13 @@
+// Helper function to reset hamburger menu animation
+function resetHamburgerMenu(menuToggle) {
+    if (menuToggle) {
+        const spans = menuToggle.querySelectorAll('span');
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+    }
+}
+
 // Mobile Menu Toggle
 document.addEventListener('DOMContentLoaded', function() {
     const menuToggle = document.getElementById('menuToggle');
@@ -14,9 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 spans[1].style.opacity = '0';
                 spans[2].style.transform = 'rotate(-45deg) translate(7px, -7px)';
             } else {
-                spans[0].style.transform = 'none';
-                spans[1].style.opacity = '1';
-                spans[2].style.transform = 'none';
+                resetHamburgerMenu(menuToggle);
             }
         });
 
@@ -27,10 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (!isClickInsideNav && !isClickOnToggle && navMenu.classList.contains('active')) {
                 navMenu.classList.remove('active');
-                const spans = menuToggle.querySelectorAll('span');
-                spans[0].style.transform = 'none';
-                spans[1].style.opacity = '1';
-                spans[2].style.transform = 'none';
+                resetHamburgerMenu(menuToggle);
             }
         });
 
@@ -40,10 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
             link.addEventListener('click', function() {
                 if (window.innerWidth <= 768) {
                     navMenu.classList.remove('active');
-                    const spans = menuToggle.querySelectorAll('span');
-                    spans[0].style.transform = 'none';
-                    spans[1].style.opacity = '1';
-                    spans[2].style.transform = 'none';
+                    resetHamburgerMenu(menuToggle);
                 }
             });
         });
@@ -85,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Hide success message after 5 seconds
             setTimeout(function() {
-                formMessage.style.display = 'none';
+                formMessage.className = 'form-message';
             }, 5000);
         });
     }
@@ -146,15 +148,10 @@ window.addEventListener('resize', function() {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function() {
         const navMenu = document.getElementById('navMenu');
+        const menuToggle = document.getElementById('menuToggle');
         if (window.innerWidth > 768 && navMenu) {
             navMenu.classList.remove('active');
-            const menuToggle = document.getElementById('menuToggle');
-            if (menuToggle) {
-                const spans = menuToggle.querySelectorAll('span');
-                spans[0].style.transform = 'none';
-                spans[1].style.opacity = '1';
-                spans[2].style.transform = 'none';
-            }
+            resetHamburgerMenu(menuToggle);
         }
     }, 250);
 });
